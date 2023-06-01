@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal</title>
+  <!-- Agrega el enlace al archivo CSS de Tailwind -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Estilos personalizados */
+    .terminal-header {
+      background-color: #374151;
+      color: #F9FAFB;
+    }
+
+    .terminal-body {
+      background-color: #1F2937;
+    }
+
+    .terminal-input {
+      background-color: #1F2937;
+      color: #F9FAFB;
+    }
+
+    .terminal-output {
+      color: #10B981;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="h-screen flex flex-col">
+    <!-- Encabezado de la terminal -->
+    <div class="flex-none p-4 terminal-header">
+      <div class="flex items-center">
+        <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+        <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+      </div>
+    </div>
+
+    <!-- Cuerpo de la terminal -->
+    <div class="flex-1 p-4 terminal-body">
+      <pre id="terminal" class="overflow-auto"></pre>
+    </div>
+
+    <!-- Entrada de comandos -->
+    <div class="p-4 terminal-input">
+      <span class="text-green-400">$</span>
+      <input id="commandInput" type="text" class="bg-transparent outline-none ml-2" placeholder="Ingrese un comando">
+    </div>
+  </div>
+
+  <!-- Agrega el enlace al archivo JavaScript para la funcionalidad de la terminal -->
+  <script>
+    const terminal = document.getElementById('terminal');
+    const commandInput = document.getElementById('commandInput');
+
+    function executeCommand() {
+      const command = commandInput.value.trim();
+      commandInput.value = '';
+
+      if (command !== '') {
+        const output = document.createElement('p');
+        output.classList.add('terminal-output');
+        output.textContent = `> ${command}`;
+        terminal.appendChild(output);
+      }
+    }
+
+    commandInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        executeCommand();
+      }
+    });
+  </script>
+</body>
+
+</html>
